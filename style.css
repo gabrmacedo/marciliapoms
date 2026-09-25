@@ -8,8 +8,8 @@
   --gold: #ad8c5d;
   --line: rgba(101, 79, 64, .24);
   --white: #fffdf9;
-  --serif: "Playfair Display", Georgia, serif;
-  --italic: "Cormorant Garamond", Georgia, serif;
+  --serif: "Bodoni Moda", serif;
+  --italic: "Bodoni Moda", serif;
   --sans: "Montserrat", Arial, sans-serif;
   --content: 1240px;
   --ease: cubic-bezier(.2, .75, .25, 1);
@@ -205,8 +205,19 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
 .image-placeholder span { font-family: var(--italic); font-size: 25px; }
 .image-placeholder small { max-width: 90%; color: var(--brown); font-size: 9px; letter-spacing: .7px; }
 .image-placeholder.is-hidden { display: none; }
-.portrait-frame { height: auto; aspect-ratio: 4 / 3; }
-.section-about .portrait-frame img { object-fit: contain; object-position: center; background: var(--white); }
+.portrait-frame {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.section-about .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
 .image-caption { position: absolute; z-index: 2; right: 0; bottom: 0; padding: 18px 23px; color: var(--white); background: rgba(61,48,40,.87); font-family: var(--italic); font-size: 19px; line-height: 1.1; }
 .feature-grid, .care-grid, .steps-grid, .kit-grid, .payment-grid { display: grid; }
 .three-cols { grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -221,7 +232,14 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
 .care-item h3 { margin-top: 28px; font-size: 19px; }
 .breed-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
 .breed-card { background: var(--white); }
-.breed-card .image-frame { height: auto; aspect-ratio: 4 / 3; }
+.breed-card .image-frame img {
+    width: 100%;
+    height: 330px;
+    display: block;
+    object-fit: cover;
+    transform: none !important;
+    transition: none !important;
+}
 .breed-content { padding: 37px 40px 42px; }
 .breed-content .eyebrow { margin-bottom: 14px; }
 .breed-content h3 { margin: 0 0 15px; color: var(--brown-deep); font-family: var(--serif); font-size: 34px; font-weight: 500; }
@@ -754,13 +772,12 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
 }
 
 .breed-grid {
-    position: relative;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
-    max-width: 1080px;
+    gap: 75px;
+    max-width: 1000px;
     margin: 55px auto 0;
-    perspective: 1400px;
+    align-items: start;
 }
 
 
@@ -802,32 +819,12 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
    FLUTUAÇÃO
    --------------------------------------------------------- */
 
-@keyframes breedFloat {
 
-    0%,
-    100% {
-        transform: translate3d(0, 0, 0);
-    }
-
-    50% {
-        transform: translate3d(0, -10px, 0);
-    }
-}
 
 
 /* ---------------------------------------------------------
    EFEITO AO PASSAR O MOUSE
    --------------------------------------------------------- */
-
-.breed-card:hover {
-    z-index: 10;
-
-    box-shadow:
-        0 30px 70px rgba(61, 48, 40, 0.16),
-        0 8px 20px rgba(61, 48, 40, 0.08);
-}
-
-
 /* ---------------------------------------------------------
    IMAGEM
    --------------------------------------------------------- */
@@ -847,11 +844,27 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
     transition:
         transform 1s cubic-bezier(.2, .75, .25, 1),
         filter .6s ease;
+
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0,0,0,.25) 8%,
+            black 25%,
+            black 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0,0,0,.25) 8%,
+            black 25%,
+            black 100%
+        );
 }
 
-.breed-card:hover .image-frame img {
-    transform: scale(1.045);
-}
+
 
 
 /* ---------------------------------------------------------
@@ -881,18 +894,6 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
     pointer-events: none;
 }
 
-
-/* ---------------------------------------------------------
-   CARD 1 / CARD 2 — LEVE DESLOCAMENTO
-   --------------------------------------------------------- */
-
-.breed-card:nth-child(1) {
-    transform: translate3d(8px, 0, 0);
-}
-
-.breed-card:nth-child(2) {
-    transform: translate3d(-8px, 18px, 0);
-}
 
 
 /* =========================================================
@@ -1026,4 +1027,646 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
 
 .section-dark .rule {
     background: var(--gold);
+}
+.hero-actions.fade-up {
+    position: relative;
+    z-index: 10;
+    animation: hero-buttons .8s var(--ease) .3s forwards;
+}
+
+@keyframes hero-buttons {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(-55px);
+    }
+}
+@media (max-width: 560px) {
+    .hero-actions.fade-up {
+        animation: hero-buttons-mobile .8s var(--ease) .3s forwards;
+    }
+
+    @keyframes hero-buttons-mobile {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(-25px);
+        }
+    }
+}
+/* =========================================================
+   HISTÓRIA — MARCÍLIA POMS
+   ========================================================= */
+
+.history-section {
+    position: relative;
+    overflow: hidden;
+
+    padding: 125px 0 140px;
+
+    background: var(--paper);
+}
+
+
+/* =========================================================
+   PEGADAS DECORATIVAS
+   ========================================================= */
+
+.history-paws {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+    opacity: .08;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='%23654f40'%3E%3Cellipse cx='91' cy='69' rx='13' ry='19' transform='rotate(-25 91 69)'/%3E%3Cellipse cx='119' cy='61' rx='13' ry='19' transform='rotate(5 119 61)'/%3E%3Cellipse cx='143' cy='78' rx='12' ry='18' transform='rotate(25 143 78)'/%3E%3Cellipse cx='108' cy='112' rx='30' ry='25' transform='rotate(-5 108 112)'/%3E%3C/g%3E%3C/svg%3E");
+
+    background-size: 260px 260px;
+    background-position: 20px 30px;
+
+    transform: rotate(-8deg) scale(1.2);
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.history-grid {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(430px, .85fr);
+
+    align-items: center;
+
+    gap: clamp(70px, 9vw, 150px);
+}
+
+
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+.history-content {
+    max-width: 650px;
+}
+
+
+.history-content .eyebrow {
+    margin-bottom: 25px;
+}
+
+
+.history-content h1 {
+    margin: 0 0 40px;
+
+    color: var(--brown-deep);
+
+    font-family: var(--serif);
+
+    font-size: clamp(44px, 5vw, 72px);
+
+    font-weight: 500;
+
+    letter-spacing: -2px;
+
+    line-height: 1.05;
+}
+
+
+.history-content h1 em {
+    color: var(--gold);
+
+    font-family: var(--italic);
+
+    font-weight: 500;
+
+    letter-spacing: 0;
+}
+
+
+.history-text {
+    max-width: 620px;
+}
+
+
+.history-text p {
+    margin: 0 0 24px;
+
+    color: var(--brown);
+
+    font-family: var(--sans);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   FRASE DE DESTAQUE
+   ========================================================= */
+
+.history-text .history-highlight {
+    margin: 38px 0;
+
+    padding-left: 24px;
+
+    border-left: 1px solid var(--gold);
+
+    color: var(--brown-deep);
+
+    font-family: var(--italic);
+
+    font-size: 23px;
+
+    line-height: 1.35;
+}
+
+
+.history-text .history-highlight em {
+    color: var(--gold);
+
+    font-family: var(--italic);
+}
+
+
+/* =========================================================
+   LINK VOLTAR
+   ========================================================= */
+
+.history-back {
+    margin-top: 22px;
+}
+
+
+/* =========================================================
+   FOTO
+   ========================================================= */
+
+.history-image {
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+
+.history-image-frame {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 620px;
+
+    aspect-ratio: 4 / 5;
+
+    overflow: hidden;
+
+    background: var(--paper-deep);
+}
+
+
+/* =========================================================
+   IMAGEM COM FADE
+   ========================================================= */
+
+.history-image-frame img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    /*
+       Aqui está o efeito que você mostrou:
+       a imagem desaparece suavemente no lado esquerdo.
+    */
+
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0,0,0,.25) 8%,
+            black 25%,
+            black 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0,0,0,.25) 8%,
+            black 25%,
+            black 100%
+        );
+}
+
+
+/* =========================================================
+   PEQUENO DETALHE DA FOTO
+   ========================================================= */
+
+.history-image-frame::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 18px;
+
+    border: 1px solid rgba(173, 140, 93, .28);
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .history-grid {
+        grid-template-columns: 1fr;
+
+        gap: 70px;
+    }
+
+    .history-content {
+        max-width: 760px;
+    }
+
+    .history-image {
+        justify-content: flex-start;
+    }
+
+    .history-image-frame {
+        max-width: 600px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 820px) {
+
+    .history-section {
+        padding: 90px 0 100px;
+    }
+
+
+    .history-grid {
+        gap: 55px;
+    }
+
+
+    .history-content h1 {
+        font-size: clamp(40px, 10vw, 58px);
+
+        letter-spacing: -1.5px;
+
+        margin-bottom: 30px;
+    }
+
+
+    .history-text p {
+        font-size: 13px;
+
+        line-height: 1.8;
+    }
+
+
+    /*
+       No celular mostramos a foto inteira.
+       O fade fica desativado para não esconder
+       parte importante da imagem.
+    */
+
+    .history-image-frame img {
+
+        -webkit-mask-image: none;
+
+        mask-image: none;
+
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR PEQUENO
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    .history-section {
+        padding: 75px 0 85px;
+    }
+
+
+    .history-grid {
+        gap: 45px;
+    }
+
+
+    .history-content h1 {
+        font-size: 42px;
+    }
+
+
+    .history-text p {
+        font-size: 13px;
+
+        margin-bottom: 21px;
+    }
+
+
+    .history-text .history-highlight {
+        margin: 30px 0;
+
+        padding-left: 18px;
+
+        font-size: 21px;
+    }
+
+
+    .history-image-frame {
+        aspect-ratio: 4 / 5;
+    }
+
+
+    .history-image-frame::after {
+        inset: 12px;
+    }
+
+}
+.instagram-embed {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* Desktop */
+@media (min-width: 821px) {
+    .instagram-embed {
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    .instagram-embed .instagram-media {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+}
+
+/* Celular — mantém como está */
+@media (max-width: 820px) {
+    .instagram-embed {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+/* =========================================================
+   CHEGADA — UMA CHEGADA PREPARADA COM CARINHO
+   ========================================================= */
+
+.arrival-section {
+    background: var(--paper);
+    padding: 125px 0;
+}
+
+.arrival-header {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 65px;
+}
+
+.arrival-title h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(48px, 5vw, 72px);
+    line-height: .98;
+    font-weight: 400;
+    color: var(--ink);
+}
+
+.arrival-title h2 em {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.arrival-intro {
+    max-width: 440px;
+    margin: 0 0 5px auto;
+    color: var(--brown);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* LAYOUT */
+
+.arrival-layout {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 75px;
+    align-items: center;
+}
+
+
+/* FOTO */
+
+.arrival-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+}
+
+.arrival-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+/* CONTEÚDO */
+
+.arrival-content {
+    max-width: 560px;
+}
+
+.arrival-small-title {
+    margin: 0 0 32px;
+    font-family: var(--serif);
+    font-size: 25px;
+    color: var(--ink);
+}
+
+
+/* BENEFÍCIOS */
+
+.arrival-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 35px;
+}
+
+.arrival-benefit {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 15px;
+
+    padding: 23px 0;
+
+    border-top: 1px solid var(--line);
+}
+
+.arrival-number {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--gold);
+}
+
+.arrival-benefit h3 {
+    margin: 0 0 7px;
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+.arrival-benefit p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--brown);
+}
+
+
+/* ALKC */
+
+.arrival-pedigree {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    margin-top: 25px;
+    padding-top: 25px;
+
+    border-top: 1px solid var(--line);
+}
+
+.arrival-pedigree-logo {
+    width: 250px;
+    height: 250px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.arrival-pedigree-logo img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+}
+
+.arrival-pedigree-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.arrival-pedigree span {
+    display: block;
+    margin-bottom: 6px;
+
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--ink);
+}
+
+.arrival-pedigree p {
+    margin: 0;
+    max-width: 380px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--brown);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 820px) {
+
+    .arrival-section {
+        padding: 85px 0;
+    }
+
+    .arrival-header {
+        display: block;
+        margin-bottom: 45px;
+    }
+
+    .arrival-title h2 {
+        font-size: 48px;
+    }
+
+    .arrival-intro {
+        margin: 25px 0 0;
+    }
+
+    .arrival-layout {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .arrival-content {
+        max-width: none;
+    }
+
+    .arrival-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .arrival-small-title {
+        font-size: 23px;
+    }
+
 }

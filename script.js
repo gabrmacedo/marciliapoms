@@ -107,50 +107,5 @@
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeLightbox();
   });
-    /* =========================================================
-     RAÇAS — MICRO PARALLAX DOS CARDS
-     ========================================================= */
-
-  const breedGrid = document.querySelector('.breed-grid');
-  const breedCards = document.querySelectorAll('.breed-card');
-
-  if (breedGrid && breedCards.length && window.matchMedia('(pointer: fine)').matches) {
-
-    breedGrid.addEventListener('pointermove', (event) => {
-
-      const rect = breedGrid.getBoundingClientRect();
-
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-      breedCards.forEach((card, index) => {
-
-        const direction = index === 0 ? 1 : -1;
-
-        const rotateX = y * -3;
-        const rotateY = x * 4 * direction;
-
-        const moveX = x * 8 * direction;
-        const moveY = y * 5;
-
-        card.style.transform = `
-          translate3d(${moveX}px, ${moveY}px, 0)
-          rotateX(${rotateX}deg)
-          rotateY(${rotateY}deg)
-        `;
-      });
-    });
-
-
-    breedGrid.addEventListener('pointerleave', () => {
-
-      breedCards.forEach((card, index) => {
-
-        card.style.transform =
-          index === 0
-            ? 'translate3d(8px, 0, 0)'
-            : 'translate3d(-8px, 18px, 0)';
-      });
-    });
-  }
+  
 })();
