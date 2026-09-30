@@ -109,3 +109,106 @@
   });
   
 })();
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const cards = document.querySelectorAll(".mp-avaliacao-card");
+
+  const lightbox = document.getElementById(
+    "mpAvaliacaoLightbox"
+  );
+
+  const lightboxImage = document.getElementById(
+    "mpAvaliacaoImagem"
+  );
+
+  const closeButton = document.getElementById(
+    "mpAvaliacaoFechar"
+  );
+
+
+  /* ==========================================
+     ABRIR PRINT
+  ========================================== */
+
+  cards.forEach(function (card) {
+
+    card.addEventListener("click", function () {
+
+      const image = card.getAttribute("data-print");
+
+      if (!image) return;
+
+      lightboxImage.src = image;
+
+      lightbox.classList.add("active");
+
+      lightbox.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+
+    });
+
+  });
+
+
+  /* ==========================================
+     FECHAR
+  ========================================== */
+
+  function fecharAvaliacao() {
+
+    lightbox.classList.remove("active");
+
+    lightbox.setAttribute("aria-hidden", "true");
+
+    document.body.style.overflow = "";
+
+    setTimeout(function () {
+
+      lightboxImage.src = "";
+
+    }, 350);
+
+  }
+
+
+  closeButton.addEventListener(
+    "click",
+    fecharAvaliacao
+  );
+
+
+  /* ==========================================
+     CLICAR FORA DO PRINT
+  ========================================== */
+
+  lightbox.addEventListener("click", function (event) {
+
+    if (event.target === lightbox) {
+
+      fecharAvaliacao();
+
+    }
+
+  });
+
+
+  /* ==========================================
+     ESC
+  ========================================== */
+
+  document.addEventListener("keydown", function (event) {
+
+    if (
+      event.key === "Escape" &&
+      lightbox.classList.contains("active")
+    ) {
+
+      fecharAvaliacao();
+
+    }
+
+  });
+
+});
