@@ -331,11 +331,72 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
    ========================================================= */
 
 .site-footer {
-    padding: 70px 0 25px;
+    position: relative;
+    overflow: hidden;
+
+    padding: 20px 0 10px;
+
     color: #d6c9bb;
+
     background: var(--brown-deep);
 }
+.site-footer::before {
+    content: "";
 
+    position: absolute;
+
+    top: 0;
+    left: -80px;
+
+    width: 430px;
+    height: 230px;
+
+    background: radial-gradient(
+        ellipse at 45% 10%,
+        #f8f4ed 0%,
+        #f8f4ed 38%,
+        rgba(248, 244, 237, 0.75) 55%,
+        rgba(248, 244, 237, 0.25) 70%,
+        transparent 70%
+    );
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+.site-footer .footer-container,
+.site-footer .footer-bottom {
+    position: relative;
+    z-index: 1;
+}
+@media (max-width: 700px) {
+
+    .site-footer::before {
+        content: "";
+
+        position: absolute;
+
+        top: -20px;
+  left: -105px;
+
+width: 480px;
+height: 310px;
+
+        background: radial-gradient(
+            ellipse 42% 45% at 48% 35%,
+            #f8f4ed 0%,
+            #f8f4ed 35%,
+            rgba(248, 244, 237, 0.65) 50%,
+            rgba(248, 244, 237, 0.25) 62%,
+            rgba(248, 244, 237, 0.08) 72%,
+            transparent 82%
+        );
+
+        pointer-events: none;
+        z-index: 0;
+    }
+
+}
 
 /* =========================================================
    ESTRUTURA PRINCIPAL
@@ -2985,4 +3046,191 @@ h1 em, h2 em { color: var(--gold); font-family: var(--italic); font-weight: 500;
 
 .arrival-section img {
     max-width: 100%;
+}
+/* =========================================================
+   LOGO — HEADER
+========================================================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.brand img {
+    display: block;
+    width: 210px;
+    height: auto;
+}
+
+
+/* =========================================================
+   LOGO — RODAPÉ
+========================================================= */
+
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.footer-brand img {
+    display: block;
+    width: 230px;
+    height: auto;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .brand img {
+        width: 175px;
+    }
+
+    .footer-brand img {
+        width: 200px;
+    }
+
+}
+/* =========================================================
+   CONTATO JUNTO AO MENU
+========================================================= */
+
+.footer-contact {
+    margin-top: 32px;
+}
+
+.footer-contact p {
+    margin: 0 0 18px;
+
+    color: #b9aa9c;
+
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.footer-contact .footer-whatsapp-btn {
+    display: inline-flex;
+
+    width: auto;
+    min-width: 195px;
+    height: 48px;
+
+    margin: 0;
+    padding: 0 20px;
+
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+}
+
+
+/* botão */
+
+.footer-contact .footer-whatsapp-btn {
+    margin: 0;
+}
+/* =========================================================
+   MOMENTO DA ENTREGA
+========================================================= */
+
+.arrival-delivery-note {
+    margin-top: 28px;
+    padding: 30px 32px;
+
+    background: #f8f4ed;
+    border-top: 1px solid rgba(101, 79, 64, 0.18);
+    border-bottom: 1px solid rgba(101, 79, 64, 0.18);
+
+    position: relative;
+}
+
+.arrival-delivery-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+
+    color: #ad8c5d;
+}
+
+.arrival-delivery-note h3 {
+    margin: 0 0 14px;
+
+    font-family: "Bodoni Moda", serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.15;
+
+    color: #3d3028;
+}
+
+.arrival-delivery-note h3 em {
+    color: #ad8c5d;
+    font-style: italic;
+}
+
+.arrival-delivery-note p {
+    max-width: 620px;
+
+    margin: 0;
+
+    font-size: 13px;
+    line-height: 1.8;
+
+    color: #654f40;
+}
+
+.arrival-delivery-note strong {
+    color: #3d3028;
+    font-weight: 600;
+}
+
+.arrival-delivery-detail {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+.arrival-delivery-detail span {
+    font-family: "Bodoni Moda", serif;
+
+    font-size: 25px;
+
+    color: #ad8c5d;
+}
+
+.arrival-delivery-detail small {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: #8b7868;
+}
+@media (max-width: 700px) {
+
+    .arrival-delivery-note {
+        margin-top: 22px;
+        padding: 25px 22px;
+    }
+
+    .arrival-delivery-note h3 {
+        font-size: 25px;
+    }
+
+    .arrival-delivery-note p {
+        font-size: 12px;
+        line-height: 1.75;
+    }
+
 }
