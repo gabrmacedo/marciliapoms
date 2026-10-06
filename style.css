@@ -4052,3 +4052,78 @@ height: 310px;
     }
 
 }
+/* =========================================
+   SETAS DOS CARDS DE RAÇA
+========================================= */
+
+.breed-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.7);
+    border-radius: 50%;
+
+    background: rgba(43,34,29,.55);
+
+    color: #fff;
+
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
+
+    transition:
+        background .25s ease,
+        transform .25s ease;
+}
+
+.breed-arrow:hover {
+    background: rgba(43,34,29,.85);
+}
+
+.breed-arrow-prev {
+    left: 14px;
+}
+
+.breed-arrow-next {
+    right: 14px;
+}
+
+.breed-arrow-prev:hover {
+    transform: translate(-3px, -50%);
+}
+
+.breed-arrow-next:hover {
+    transform: translate(3px, -50%);
+}
+
+
+@media (max-width: 560px) {
+
+    .breed-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 28px;
+    }
+
+    .breed-arrow-prev {
+        left: 10px;
+    }
+
+    .breed-arrow-next {
+        right: 10px;
+    }
+
+}

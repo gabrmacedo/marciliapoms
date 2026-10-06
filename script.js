@@ -300,3 +300,119 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+/* =========================================
+   CARROSSEL DOS CARDS DE RAÇA
+   MANUAL — SEM TROCA AUTOMÁTICA
+========================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".breed-carousel").forEach(function (carousel) {
+
+        const slides = Array.from(
+            carousel.querySelectorAll(".breed-slide")
+        );
+
+        if (slides.length <= 1) return;
+
+        let current = 0;
+
+
+        /* =========================================
+           FOTO INICIAL
+        ========================================= */
+
+        slides.forEach(function (slide, index) {
+
+            slide.classList.remove("active", "leaving");
+
+            if (index === 0) {
+                slide.classList.add("active");
+            }
+
+        });
+
+
+        /* =========================================
+           TROCAR FOTO
+        ========================================= */
+
+        function showSlide(index) {
+
+            slides[current].classList.remove("active", "leaving");
+
+            current = (index + slides.length) % slides.length;
+
+            slides[current].classList.add("active");
+
+        }
+
+
+        /* =========================================
+           SETA ESQUERDA
+        ========================================= */
+
+        const prev = document.createElement("button");
+
+        prev.type = "button";
+        prev.className = "breed-arrow breed-arrow-prev";
+        prev.innerHTML = "‹";
+        prev.setAttribute(
+            "aria-label",
+            "Foto anterior"
+        );
+
+
+        /* =========================================
+           SETA DIREITA
+        ========================================= */
+
+        const next = document.createElement("button");
+
+        next.type = "button";
+        next.className = "breed-arrow breed-arrow-next";
+        next.innerHTML = "›";
+        next.setAttribute(
+            "aria-label",
+            "Próxima foto"
+        );
+
+
+        /* =========================================
+           ADICIONA AS SETAS
+        ========================================= */
+
+        carousel.appendChild(prev);
+        carousel.appendChild(next);
+
+
+        /* =========================================
+           CLIQUE — ANTERIOR
+        ========================================= */
+
+        prev.addEventListener("click", function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            showSlide(current - 1);
+
+        });
+
+
+        /* =========================================
+           CLIQUE — PRÓXIMA
+        ========================================= */
+
+        next.addEventListener("click", function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            showSlide(current + 1);
+
+        });
+
+    });
+
+});
