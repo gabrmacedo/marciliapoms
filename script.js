@@ -212,3 +212,364 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+/* =========================================
+   CARROSSEL MARCÍLIA POMS
+   EFEITO — FOTO VINDO DE TRÁS
+========================================= */
+
+document.querySelectorAll(".breed-carousel").forEach((carousel) => {
+
+    const slides = Array.from(
+        carousel.querySelectorAll(".breed-slide")
+    );
+
+    if (slides.length <= 1) return;
+
+
+    let current = 0;
+
+    let isAnimating = false;
+
+
+    /* =========================================
+       ESTADO INICIAL
+    ========================================= */
+
+    slides.forEach((slide, index) => {
+
+        slide.classList.remove("active", "leaving");
+
+        if (index === 0) {
+            slide.classList.add("active");
+        }
+
+    });
+
+
+    /* =========================================
+       FUNÇÃO DE TROCA
+    ========================================= */
+
+    function changeSlide() {
+
+        if (isAnimating) return;
+
+        isAnimating = true;
+
+
+        const currentSlide = slides[current];
+
+        const next = (current + 1) % slides.length;
+
+        const nextSlide = slides[next];
+
+
+        /* -----------------------------------------
+           A FOTO ATUAL COMEÇA A SAIR
+        ----------------------------------------- */
+
+        currentSlide.classList.add("leaving");
+
+
+        /* -----------------------------------------
+           A PRÓXIMA FOTO VEM DE TRÁS
+        ----------------------------------------- */
+
+        nextSlide.classList.add("active");
+
+
+        /*
+         * Atualiza o índice
+         */
+        current = next;
+
+
+        /*
+         * Depois que a animação termina,
+         * limpamos a classe da foto anterior.
+         */
+
+        setTimeout(() => {
+
+            currentSlide.classList.remove("active", "leaving");
+
+            isAnimating = false;
+
+        }, 1900);
+
+    }
+
+
+    /* =========================================
+       TROCA AUTOMÁTICA
+       
+       5,5 segundos vendo a foto
+       + aproximadamente 1,9s de animação
+    ========================================= */
+
+    setInterval(() => {
+
+        changeSlide();
+
+    }, 4000);
+
+});
+document.querySelectorAll('.kennel-carousel').forEach(carousel => {
+
+    const slides = carousel.querySelectorAll('.kennel-slide');
+
+    if (slides.length <= 1) return;
+
+    let current = 0;
+
+    setInterval(() => {
+
+        slides[current].classList.remove('active');
+
+        current = (current + 1) % slides.length;
+
+        slides[current].classList.add('active');
+
+    }, 4000);
+
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const section = document.querySelector(".plantel-gallery-section");
+    const items = document.querySelectorAll(".plantel-gallery-item");
+
+    const modal = document.getElementById("plantelGalleryModal");
+    const modalImage = document.getElementById("plantelGalleryModalImage");
+    const counter = document.getElementById("plantelGalleryCounter");
+
+    const closeButton = document.querySelector(".plantel-gallery-close");
+    const prevButton = document.querySelector(".plantel-gallery-prev");
+    const nextButton = document.querySelector(".plantel-gallery-next");
+    const moreButton = document.querySelector(".plantel-gallery-more");
+
+    if (!section || !items.length || !modal) {
+        return;
+    }
+
+    let currentIndex = 0;
+
+
+    /* ==========================================
+       VER TODAS AS FOTOS
+       ========================================== */
+
+    moreButton.addEventListener("click", function () {
+
+        section.classList.toggle("show-all");
+
+        if (section.classList.contains("show-all")) {
+
+            moreButton.querySelector("span:first-child").textContent =
+                "Mostrar menos";
+
+            moreButton.querySelector(".plantel-gallery-more-icon").textContent =
+                "↑";
+
+        } else {
+
+            moreButton.querySelector("span:first-child").textContent =
+                "Ver todas as fotos";
+
+            moreButton.querySelector(".plantel-gallery-more-icon").textContent =
+                "↓";
+
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+    });
+
+
+    /* ==========================================
+       ABRIR MODAL
+       ========================================== */
+
+    function openGallery(index) {
+
+        currentIndex = index;
+
+        updateModal();
+
+        modal.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+    }
+
+
+    /* ==========================================
+       ATUALIZAR FOTO
+       ========================================== */
+
+    function updateModal() {
+
+        const item = items[currentIndex];
+
+        if (!item) return;
+
+        const image = item.querySelector("img");
+
+        if (!image) return;
+
+        modalImage.style.opacity = "0";
+
+        setTimeout(function () {
+
+            modalImage.src = image.src;
+            modalImage.alt = image.alt;
+
+            counter.textContent =
+                (currentIndex + 1) + " / " + items.length;
+
+            modalImage.onload = function () {
+                modalImage.style.opacity = "1";
+            };
+
+        }, 120);
+    }
+
+
+    /* ==========================================
+       CLICAR NAS FOTOS
+       ========================================== */
+
+    items.forEach(function (item, index) {
+
+        item.addEventListener("click", function () {
+
+            openGallery(index);
+
+        });
+
+    });
+
+
+    /* ==========================================
+       PRÓXIMA FOTO
+       ========================================== */
+
+    function nextImage() {
+
+        currentIndex++;
+
+        if (currentIndex >= items.length) {
+            currentIndex = 0;
+        }
+
+        updateModal();
+    }
+
+
+    /* ==========================================
+       FOTO ANTERIOR
+       ========================================== */
+
+    function previousImage() {
+
+        currentIndex--;
+
+        if (currentIndex < 0) {
+            currentIndex = items.length - 1;
+        }
+
+        updateModal();
+    }
+
+
+    nextButton.addEventListener("click", nextImage);
+
+    prevButton.addEventListener("click", previousImage);
+
+
+    /* ==========================================
+       FECHAR
+       ========================================== */
+
+    function closeGallery() {
+
+        modal.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    }
+
+    closeButton.addEventListener("click", closeGallery);
+
+
+    /* ==========================================
+       CLICAR FORA DA IMAGEM
+       ========================================== */
+
+    modal.addEventListener("click", function (event) {
+
+        if (event.target === modal) {
+            closeGallery();
+        }
+
+    });
+
+
+    /* ==========================================
+       TECLADO
+       ========================================== */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (!modal.classList.contains("active")) {
+            return;
+        }
+
+        if (event.key === "Escape") {
+            closeGallery();
+        }
+
+        if (event.key === "ArrowRight") {
+            nextImage();
+        }
+
+        if (event.key === "ArrowLeft") {
+            previousImage();
+        }
+
+    });
+
+
+    /* ==========================================
+       SWIPE NO CELULAR
+       ========================================== */
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    modal.addEventListener("touchstart", function (event) {
+
+        touchStartX = event.changedTouches[0].screenX;
+
+    }, { passive: true });
+
+
+    modal.addEventListener("touchend", function (event) {
+
+        touchEndX = event.changedTouches[0].screenX;
+
+        const difference = touchStartX - touchEndX;
+
+        if (Math.abs(difference) < 50) {
+            return;
+        }
+
+        if (difference > 0) {
+            nextImage();
+        } else {
+            previousImage();
+        }
+
+    }, { passive: true });
+
+});
