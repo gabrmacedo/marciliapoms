@@ -3975,3 +3975,80 @@ height: 310px;
         bottom: 12px;
     }
 }
+
+/* SETAS DO CARROSSEL DO PLANTEL */
+
+.kennel-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 50%;
+
+    background: rgba(43, 34, 29, .55);
+
+    color: var(--white);
+
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
+
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        opacity .3s ease;
+}
+
+.kennel-arrow:hover {
+    background: rgba(43, 34, 29, .85);
+}
+
+.kennel-arrow-prev {
+    left: 14px;
+}
+
+.kennel-arrow-next {
+    right: 14px;
+}
+
+.kennel-arrow-prev:hover {
+    transform: translate(-3px, -50%);
+}
+
+.kennel-arrow-next:hover {
+    transform: translate(3px, -50%);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 560px) {
+
+    .kennel-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 28px;
+    }
+
+    .kennel-arrow-prev {
+        left: 10px;
+    }
+
+    .kennel-arrow-next {
+        right: 10px;
+    }
+
+}
