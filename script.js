@@ -416,3 +416,244 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+/* =========================================
+   LISTA DE INTERESSE
+========================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const abrirButton = document.getElementById(
+        "abrirListaInteresse"
+    );
+
+    const modal = document.getElementById(
+        "listaInteresseModal"
+    );
+
+    const fecharButton = document.getElementById(
+        "fecharListaInteresse"
+    );
+
+    const enviarButton = document.getElementById(
+        "enviarListaInteresse"
+    );
+
+    const racas = document.querySelectorAll(
+        ".lista-option[data-raca]"
+    );
+
+    const finalidades = document.querySelectorAll(
+        ".lista-option[data-finalidade]"
+    );
+
+
+    /* =========================================
+       CONFIGURAÇÃO
+    ========================================= */
+
+    /*
+       COLOQUE AQUI O NÚMERO DO WHATSAPP DA MARCÍLIA.
+
+       Formato:
+       55 + DDD + número
+
+       Exemplo:
+       5554999999999
+
+       SEM:
+       +
+       espaços
+       parênteses
+       hífen
+    */
+
+    const whatsappNumber = "55XXXXXXXXXXX";
+
+
+    /*
+       Nome que aparecerá na mensagem.
+       Altere se necessário.
+    */
+
+    const nomeContato = "Andressa";
+
+
+    let racaSelecionada = "";
+    let finalidadeSelecionada = "";
+
+
+    /* =========================================
+       ABRIR MODAL
+    ========================================= */
+
+    abrirButton?.addEventListener("click", function () {
+
+        modal.classList.add("active");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.style.overflow = "hidden";
+
+    });
+
+
+    /* =========================================
+       FECHAR MODAL
+    ========================================= */
+
+    function fecharModal() {
+
+        modal.classList.remove("active");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.style.overflow = "";
+
+    }
+
+
+    fecharButton?.addEventListener(
+        "click",
+        fecharModal
+    );
+
+
+    /* =========================================
+       CLICAR FORA
+    ========================================= */
+
+    modal?.addEventListener("click", function (event) {
+
+        if (event.target === modal) {
+            fecharModal();
+        }
+
+    });
+
+
+    /* =========================================
+       ESC
+    ========================================= */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (
+            event.key === "Escape" &&
+            modal?.classList.contains("active")
+        ) {
+            fecharModal();
+        }
+
+    });
+
+
+    /* =========================================
+       SELECIONAR RAÇA
+    ========================================= */
+
+    racas.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            racas.forEach(function (item) {
+                item.classList.remove("selected");
+            });
+
+            button.classList.add("selected");
+
+            racaSelecionada =
+                button.dataset.raca;
+
+            atualizarBotao();
+
+        });
+
+    });
+
+
+    /* =========================================
+       SELECIONAR FINALIDADE
+    ========================================= */
+
+    finalidades.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            finalidades.forEach(function (item) {
+                item.classList.remove("selected");
+            });
+
+            button.classList.add("selected");
+
+            finalidadeSelecionada =
+                button.dataset.finalidade;
+
+            atualizarBotao();
+
+        });
+
+    });
+
+
+    /* =========================================
+       LIBERAR BOTÃO
+    ========================================= */
+
+    function atualizarBotao() {
+
+        if (
+            racaSelecionada &&
+            finalidadeSelecionada
+        ) {
+
+            enviarButton.disabled = false;
+
+        } else {
+
+            enviarButton.disabled = true;
+
+        }
+
+    }
+
+
+    /* =========================================
+       ABRIR WHATSAPP
+    ========================================= */
+
+    enviarButton?.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !racaSelecionada ||
+                !finalidadeSelecionada
+            ) {
+                return;
+            }
+
+
+            const mensagem =
+                `Olá, *${nomeContato}! Conheci o Marcília Poms pelo site e gostaria de saber sobre a Lista de Interesse. Tenho interesse em um(a) ${racaSelecionada}, para ${finalidadeSelecionada}.`;
+
+
+            const url =
+                `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensagem)}`;
+
+
+            window.open(
+                url,
+                "_blank"
+            );
+
+        }
+    );
+
+});

@@ -4127,3 +4127,635 @@ height: 310px;
     }
 
 }
+/* =====================================================
+   LISTA DE INTERESSE
+===================================================== */
+
+.lista-interesse {
+    width: 100%;
+    max-width: 1100px;
+    margin: 70px auto;
+    padding: 0 24px;
+}
+
+.lista-interesse-content {
+    position: relative;
+
+    width: 100%;
+    max-width: 850px;
+
+    margin: 0 auto;
+    padding: 45px 55px;
+
+    background: var(--white);
+
+    text-align: center;
+
+    border: 1px solid rgba(173, 140, 93, .35);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   FOTO DE FUNDO
+===================================================== */
+
+.lista-interesse-content::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image: url("assets/foto4.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    opacity: 0.30;
+
+    z-index: 0;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   CAMADA CLARA SOBRE A FOTO
+===================================================== */
+
+.lista-interesse-content::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: rgba(247, 243, 237, 0.55);
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   CONTEÚDO ACIMA DA FOTO
+===================================================== */
+
+.lista-interesse-content > * {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =====================================================
+   PEQUENO TÍTULO
+===================================================== */
+
+.lista-interesse-kicker {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--gold);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   TÍTULO PRINCIPAL
+===================================================== */
+
+.lista-interesse-content h2 {
+    max-width: 600px;
+
+    margin: 0 auto 15px;
+
+    color: var(--brown);
+
+    font-family: var(--serif);
+
+    font-size: clamp(28px, 4vw, 40px);
+
+    font-weight: 500;
+
+    line-height: 1.15;
+}
+
+
+/* =====================================================
+   TEXTO
+===================================================== */
+
+.lista-interesse-content > p {
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    color: var(--brown);
+
+    font-size: 13px;
+
+    line-height: 1.75;
+}
+
+
+/* =====================================================
+   AVISO
+===================================================== */
+
+.lista-interesse-note {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    max-width: 600px;
+
+    margin: 20px auto 25px;
+
+    padding: 10px 15px;
+
+    background: rgba(247, 243, 237, 0.82);
+}
+
+.lista-interesse-note span {
+    flex-shrink: 0;
+
+    color: var(--gold);
+
+    font-size: 14px;
+}
+
+.lista-interesse-note p {
+    margin: 0;
+
+    color: var(--brown);
+
+    font-size: 10px;
+
+    letter-spacing: .3px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   BOTÃO PRINCIPAL
+===================================================== */
+
+.lista-interesse-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    min-height: 48px;
+
+    padding: 13px 22px;
+
+    border: 1px solid var(--brown);
+
+    background: var(--brown);
+
+    color: var(--white);
+
+    font-family: var(--sans, sans-serif);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        transform .3s ease;
+}
+
+.lista-interesse-button span {
+    font-size: 16px;
+
+    transition: transform .3s ease;
+}
+
+.lista-interesse-button:hover {
+    background: var(--gold);
+
+    border-color: var(--gold);
+
+    transform: translateY(-2px);
+}
+
+.lista-interesse-button:hover span {
+    transform: translateX(4px);
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.lista-interesse-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(35, 27, 23, .72);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+.lista-interesse-modal.active {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* =====================================================
+   CAIXA DO MODAL
+===================================================== */
+
+.lista-interesse-modal-box {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 510px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 42px 42px 35px;
+
+    background: var(--white);
+
+    box-shadow: 0 20px 70px rgba(0, 0, 0, .20);
+
+    transform: translateY(15px);
+
+    transition: transform .3s ease;
+}
+
+.lista-interesse-modal.active
+.lista-interesse-modal-box {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   BOTÃO FECHAR
+===================================================== */
+
+.lista-interesse-fechar {
+    position: absolute;
+
+    top: 15px;
+
+    right: 15px;
+
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(101, 79, 64, .25);
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: var(--brown);
+
+    font-size: 25px;
+
+    font-weight: 300;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background .25s ease,
+        transform .25s ease;
+}
+
+.lista-interesse-fechar:hover {
+    background: #f7f3ed;
+
+    transform: rotate(90deg);
+}
+
+
+/* =====================================================
+   CABEÇALHO DO MODAL
+===================================================== */
+
+.lista-interesse-modal-kicker {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--gold);
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.lista-interesse-modal-box h3 {
+    margin: 0 35px 10px 0;
+
+    color: var(--brown);
+
+    font-family: var(--serif);
+
+    font-size: 29px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+}
+
+.lista-interesse-modal-description {
+    margin: 0 0 28px;
+
+    color: var(--brown);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   CAMPOS
+===================================================== */
+
+.lista-interesse-field {
+    margin-bottom: 23px;
+}
+
+.lista-interesse-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--brown);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   OPÇÕES
+===================================================== */
+
+.lista-interesse-options {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 9px;
+}
+
+.lista-option {
+    min-height: 48px;
+
+    padding: 10px 12px;
+
+    border: 1px solid rgba(101, 79, 64, .25);
+
+    background: transparent;
+
+    color: var(--brown);
+
+    font-family: var(--sans, sans-serif);
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        color .25s ease;
+}
+
+.lista-option:hover {
+    border-color: var(--gold);
+}
+
+.lista-option.selected {
+    border-color: var(--gold);
+
+    background: var(--gold);
+
+    color: var(--white);
+}
+
+
+/* =====================================================
+   BOTÃO WHATSAPP
+===================================================== */
+
+.lista-interesse-whatsapp {
+    width: 100%;
+
+    min-height: 49px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 8px;
+
+    padding: 12px 18px;
+
+    border: 0;
+
+    background: #25D366;
+
+    color: #fff;
+
+    font-family: var(--sans, sans-serif);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+}
+
+.lista-interesse-whatsapp span {
+    font-size: 16px;
+}
+
+.lista-interesse-whatsapp:disabled {
+    opacity: .4;
+
+    cursor: not-allowed;
+}
+
+.lista-interesse-whatsapp:not(:disabled):hover {
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   AVISO ABAIXO DO BOTÃO
+===================================================== */
+
+.lista-interesse-required {
+    margin: 10px 0 0;
+
+    color: rgba(101, 79, 64, .65);
+
+    font-size: 9px;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .lista-interesse {
+        margin: 50px auto;
+
+        padding: 0 15px;
+    }
+
+
+    .lista-interesse-content {
+        padding: 35px 22px;
+    }
+
+
+    .lista-interesse-content h2 {
+        font-size: 29px;
+    }
+
+
+    .lista-interesse-content > p {
+        font-size: 12px;
+
+        line-height: 1.7;
+    }
+
+
+    .lista-interesse-note {
+        align-items: flex-start;
+
+        text-align: left;
+    }
+
+
+    .lista-interesse-note p {
+        font-size: 9px;
+
+        line-height: 1.5;
+    }
+
+
+    .lista-interesse-button {
+        width: 100%;
+
+        padding: 13px 15px;
+
+        font-size: 9px;
+    }
+
+
+    /* MODAL MOBILE */
+
+    .lista-interesse-modal {
+        padding: 12px;
+    }
+
+
+    .lista-interesse-modal-box {
+        padding: 38px 22px 25px;
+    }
+
+
+    .lista-interesse-modal-box h3 {
+        font-size: 27px;
+    }
+
+
+    .lista-interesse-options {
+        grid-template-columns: 1fr;
+    }
+
+
+    .lista-option {
+        min-height: 46px;
+    }
+
+}
