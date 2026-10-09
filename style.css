@@ -1685,20 +1685,24 @@ height: 310px;
 }
 
 
-/* FOTO */
 
+/* FOTO — TAMANHO REDUZIDO */
 .arrival-image {
     position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: auto;
 }
 
 .arrival-image img {
-    width: 100%;
-    height: 100%;
     display: block;
-    object-fit: cover;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
+
 
 
 /* CONTEÚDO */
@@ -4863,4 +4867,191 @@ height: 310px;
         max-width: 100%;
         padding: 16px;
     }
+}
+
+/* FOTO DOS FILHOTES — ABRIR EM TAMANHO GRANDE */
+.breed-carousel .breed-slide {
+    cursor: zoom-in;
+}
+
+/* Janela da foto ampliada */
+.breed-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(20, 16, 14, 0.94);
+}
+
+.breed-lightbox.is-open {
+    display: flex;
+}
+
+.breed-lightbox img {
+    display: block;
+    max-width: 95vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.breed-lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 22px;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .breed-lightbox {
+        padding: 12px;
+    }
+
+    .breed-lightbox img {
+        max-width: 96vw;
+        max-height: 84vh;
+    }
+}
+
+.breed-carousel .breed-slide.active {
+    cursor: zoom-in;
+}
+
+.breed-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(20, 16, 14, 0.95);
+}
+
+.breed-lightbox.is-open {
+    display: flex;
+}
+
+.breed-lightbox img {
+    display: block;
+    max-width: 95vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.breed-lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #382115;
+    font-size: 30px;
+    cursor: pointer;
+}
+/* Permite clicar na foto ativa para ampliar */
+.breed-carousel .breed-slide.active {
+    pointer-events: auto !important;
+    cursor: zoom-in !important;
+}
+/* Centralizar a imagem ampliada na tela */
+.lightbox.is-open {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: fixed !important;
+    inset: 0 !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    z-index: 99999 !important;
+}
+
+.lightbox.is-open img {
+    display: block !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: auto !important;
+}
+
+.lightbox-close {
+    position: absolute !important;
+    top: 15px !important;
+    right: 20px !important;
+    z-index: 100000 !important;
+}
+
+/* FOTO AMPLIADA DO PLANTEL */
+.lightbox.is-open {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    z-index: 99999 !important;
+}
+
+.lightbox.is-open img {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    margin: auto !important;
+}
+
+.kennel-carousel .kennel-slide.active {
+    cursor: zoom-in;
+}
+
+/* GALERIA DO PLANTEL — FOTO AMPLIADA */
+.lightbox.is-open {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    z-index: 99999 !important;
+}
+
+.lightbox.is-open img {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    margin: auto !important;
+}
+
+.plantel-gallery-item {
+    cursor: zoom-in;
 }

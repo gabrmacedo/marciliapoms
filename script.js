@@ -89,17 +89,41 @@
     if (lightboxImage) lightboxImage.removeAttribute('src');
     document.body.style.overflow = '';
   };
-  document.querySelectorAll('.gallery-item').forEach((item) => {
-    item.addEventListener('click', () => {
-      const source = item.querySelector('img');
-      if (!source?.classList.contains('is-loaded') || !lightbox || !lightboxImage) return;
-      lightboxImage.src = item.dataset.image;
-      lightboxImage.alt = item.dataset.alt || '';
-      lightbox.classList.add('is-open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    });
-  });
+  document.addEventListener('click', (event) => {
+    const itemGaleria = event.target.closest('.gallery-item');
+    const fotoFilhote = event.target.closest('.breed-carousel .breed-slide.active');
+
+    // Se clicou numa foto da galeria ou num filhote ativo
+    const item = itemGaleria || fotoFilhote;
+
+    if (!item) return;
+
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = lightbox?.querySelector('img');
+
+    if (!lightbox || !lightboxImage) return;
+
+    const imagem = itemGaleria
+        ? item.querySelector('img')
+        : item;
+
+    if (!imagem) return;
+
+    const caminho = itemGaleria
+        ? item.dataset.image || imagem.currentSrc || imagem.src
+        : imagem.currentSrc || imagem.src;
+
+    if (!caminho) return;
+
+    lightboxImage.src = caminho;
+    lightboxImage.alt = itemGaleria
+        ? item.dataset.alt || imagem.alt || ''
+        : imagem.alt || 'Foto ampliada do filhote';
+
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+});
   lightbox?.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
   lightbox?.addEventListener('click', (event) => {
     if (event.target === lightbox) closeLightbox();
@@ -656,4 +680,50 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
+});
+
+/* AMPLIAR FOTOS DO PLANTEL */
+document.addEventListener('click', function (event) {
+    const slide = event.target.closest('.kennel-carousel .kennel-slide');
+
+    if (!slide) return;
+
+    // Só abre a foto que está sendo exibida
+    if (!slide.classList.contains('active')) return;
+
+    // Evita abrir a foto quando o clique for numa seta
+    if (event.target.closest('.kennel-arrow')) return;
+
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = lightbox?.querySelector('img');
+    const imagem = slide.querySelector('img');
+
+    if (!lightbox || !lightboxImage || !imagem) return;
+
+    lightboxImage.src = imagem.currentSrc || imagem.src;
+    lightboxImage.alt = imagem.alt || 'Foto do plantel Marcília Poms';
+
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+});
+
+/* AMPLIAR FOTOS DA GALERIA DO PLANTEL */
+document.addEventListener('click', function (event) {
+    const item = event.target.closest('.plantel-gallery-item');
+
+    if (!item) return;
+
+    const imagem = item.querySelector('img');
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = lightbox?.querySelector('img');
+
+    if (!imagem || !lightbox || !lightboxImage) return;
+
+    lightboxImage.src = imagem.currentSrc || imagem.src;
+    lightboxImage.alt = imagem.alt || 'Foto do plantel Marcília Poms';
+
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
 });
